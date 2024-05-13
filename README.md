@@ -5,6 +5,17 @@ addresses and addresses from coordinates (reverse geocoding).
 Project based on Nominatim software. It is a self-hosted alternative
 to the Google Maps API.
 
+- [Nominatim API](#nominatim-api)
+  - [Requirements](#requirements)
+    - [API](#api)
+    - [Nominatim](#nominatim)
+  - [Details](#details)
+  - [Screenshots](#screenshots)
+  - [Run](#run)
+  - [Tests](#tests)
+  - [Coverage](#coverage)
+
+
 ## Requirements
 ### API
 - Python 3.10+
@@ -55,64 +66,64 @@ Get address coordinates (reverse geocoding):
 
 ## Run
 1. Create .env file in main dir. See .env.example
-   2. Install requirements:
-      ```sh 
-      make install
-      ```
-      3. Create docker-compose file like below (change map data url if you want):
-         ```yaml
-         # See PBF_URL and REPLICATION_URL, change the name of the country in urls if you want
-         # example for US:
-         # PBF_URL: 'https://download.geofabrik.de/north-america/us-latest.osm.pbf'
-         # REPLICATION_URL: 'https://download.geofabrik.de/north-america/us-updates/'
+2. Install requirements:
+   ```sh 
+   make install
+   ```
+3. Create docker-compose file like below (change map data url if you want):
+   ```yaml
+   # See PBF_URL and REPLICATION_URL, change the name of the country in urls if you want
+   # example for US:
+   # PBF_URL: 'https://download.geofabrik.de/north-america/us-latest.osm.pbf'
+   # REPLICATION_URL: 'https://download.geofabrik.de/north-america/us-updates/'
    
-         version: '3.6'
-         services:
-           nominatim:
-             image: 'mediagis/nominatim:4.4'
-             container_name: 'nominatim-server'
-             environment:
-               TZ: Europe/Warsaw
-               PBF_URL: 'https://download.geofabrik.de/europe/poland-latest.osm.pbf'
-               REPLICATION_URL: 'https://download.geofabrik.de/europe/poland-updates/'
-               IMPORT_WIKIPEDIA: 'false'
-             volumes:
-               - './volumes/nominatim-data:/var/lib/postgresql/14/main:rw'
-               - './volumes/nominatim-flatnode:/nominatim/flatnode:rw'
-             ports:
-               - '9000:8080'
-             shm_size: '8g'
-             networks:
-               - nominatim-network
+   version: '3.6'
+   services:
+     nominatim:
+       image: 'mediagis/nominatim:4.4'
+       container_name: 'nominatim-server'
+       environment:
+         TZ: Europe/Warsaw
+         PBF_URL: 'https://download.geofabrik.de/europe/poland-latest.osm.pbf'
+         REPLICATION_URL: 'https://download.geofabrik.de/europe/poland-updates/'
+         IMPORT_WIKIPEDIA: 'false'
+       volumes:
+         - './volumes/nominatim-data:/var/lib/postgresql/14/main:rw'
+         - './volumes/nominatim-flatnode:/nominatim/flatnode:rw'
+       ports:
+         - '9000:8080'
+       shm_size: '8g'
+       networks:
+         - nominatim-network
    
 
-           api:
-             image: 'wojtek9502/wojtek9502/geo-nominatim-api'
-             container_name: 'nominatim-api'
-             command: ['python', 'run_http_server.py']
-             environment:
-               - APP_ENV: 'production'
-               - API_AUTH_TOKEN: '<random str>'
-               - NOMINATIM_URL: 'http://nominatim-api:8080'
-             ports:
-               - '8080:5000'
-             networks:
-               - nominatim-network
+     api:
+       image: 'wojtek9502/wojtek9502/geo-nominatim-api'
+       container_name: 'nominatim-api'
+       command: ['python', 'run_http_server.py']
+       environment:
+         - APP_ENV: 'production'
+         - API_AUTH_TOKEN: '<random str>'
+         - NOMINATIM_URL: 'http://nominatim-api:8080'
+       ports:
+         - '8080:5000'
+       networks:
+         - nominatim-network
          
-         networks:
-           nominatim-network:
-             driver: bridge
-         ```
+   networks:
+     nominatim-network:
+       driver: bridge
+   ```
    
-3. Run docker containers. 
+4. Run docker containers. 
    ```shell
    make up
    ```
-4. Run worker
+5. Run worker
    ```shell
    make run-worker
    ```
-5. Go http://127.0.0.1:5000/swagger-ui
+6. Go http://127.0.0.1:8080/swagger-ui
 
 ## Tests
 ```shell
