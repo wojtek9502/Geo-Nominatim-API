@@ -50,7 +50,7 @@ Even on a well configured machine the import of a full planet takes around 2 day
 When using traditional SSDs, 4-5 days are more realistic._  
 
 More: https://nominatim.org/release-docs/latest/admin/Installation/  
-Dockerhub image: https://hub.docker.com/repository/docker/wojtek9502/autogen-codility-tasks
+Dockerhub image: https://hub.docker.com/repository/docker/wojtek9502/geo-nominatim-api
 
 ## Screenshots
 <details>
