@@ -1,0 +1,5 @@
+[tool.coverage.run]
+omit = [
+    'src\nominatim\client\NominatimClient.py',
+    'src\nominatim\client\utils.py'
+]

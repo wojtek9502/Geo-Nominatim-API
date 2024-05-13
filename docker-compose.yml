@@ -2,13 +2,32 @@ version: '3.6'
 services:
   nominatim:
     image: 'mediagis/nominatim:4.4'
+    container_name: 'nominatim-server'
     environment:
       TZ: Europe/Warsaw
       PBF_URL: 'https://download.geofabrik.de/europe/poland-latest.osm.pbf'
       REPLICATION_URL: 'https://download.geofabrik.de/europe/poland-updates/'
       IMPORT_WIKIPEDIA: 'false'
     volumes:
-      - './volumes/nominatim/db:/var/lib/postgresql/12/main:rw'
+      - './volumes/nominatim-data:/var/lib/postgresql/14/main:rw'
+      - './volumes/nominatim-flatnode:/nominatim/flatnode:rw'
     ports:
       - '9000:8080'
     shm_size: '8g'
+    networks:
+      - nominatim-network
+
+  api:
+    build: .
+    container_name: 'nominatim-api'
+    command: ['python', 'run_http_server.py']
+    env_file:
+      - .env
+    ports:
+      - '8080:5000'
+    networks:
+      - nominatim-network
+
+networks:
+ nominatim-network:
+   driver: bridge

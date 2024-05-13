@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-IMAGE_NAME=""
+IMAGE_NAME="geo-nominatim-api"
 
 COMMIT_SHORT_TAG=$(git rev-parse --short HEAD)
 IMAGE_LATEST_TAG="wojtek9502/${IMAGE_NAME}:latest"

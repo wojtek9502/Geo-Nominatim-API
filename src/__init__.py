@@ -32,5 +32,7 @@ app = FastAPI(
 )
 
 from src.api.other.router import router as other_router
+from src.api.geo.router import router as geo_router
+app.include_router(geo_router)
 app.include_router(other_router)
 
