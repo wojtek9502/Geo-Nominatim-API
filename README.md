@@ -5,15 +5,15 @@ addresses and addresses from coordinates (reverse geocoding).
 Project based on Nominatim software. It is a self-hosted alternative
 to the Google Maps API.
 
-- [Nominatim API](#nominatim-api)
-  - [Requirements](#requirements)
-    - [API](#api)
-    - [Nominatim](#nominatim)
-  - [Details](#details)
-  - [Screenshots](#screenshots)
-  - [Run](#run)
-  - [Tests](#tests)
-  - [Coverage](#coverage)
+
+- [Requirements](#requirements)
+  - [API](#api)
+  - [Nominatim](#nominatim)
+- [Details](#details)
+- [Screenshots](#screenshots)
+- [Run](#run)
+- [Tests](#tests)
+- [Coverage](#coverage)
 
 
 ## Requirements
