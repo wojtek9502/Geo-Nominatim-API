@@ -89,7 +89,6 @@ Get address coordinates (reverse geocoding):
          IMPORT_WIKIPEDIA: 'false'
        volumes:
          - './volumes/nominatim-data:/var/lib/postgresql/14/main:rw'
-         - './volumes/nominatim-flatnode:/nominatim/flatnode:rw'
        ports:
          - '9000:8080'
        shm_size: '8g'
