@@ -69,6 +69,8 @@ Get address coordinates (reverse geocoding):
 2. Install requirements:
    ```sh 
    make install
+   # or
+   uv sync
    ```
 3. Create docker-compose file like below (change map data url if you want):
    ```yaml
